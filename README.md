@@ -4,4 +4,6 @@
 
 -Cài mongobd nodejs drive:  yarn add mongodb
 
--Cài thư viện đóng kết nối mongodb khi tắt sever hoặc khi không cần thiết : npm i exit-hook
+-Cài thư viện đóng kết nối mongodb khi tắt sever hoặc khi không cần thiết : yarn add exit-hook
+
+-Cài thư viện env : yarn add dotenv

@@ -1,6 +1,9 @@
 import { MongoClient, ServerApiVersion } from 'mongodb'
+import { env } from './environment'
 
-const MONGODB_URI = 'mongodb+srv://machngocxuan2004:gWcq8rIx8Bje5vts@trello-web.pcrr73y.mongodb.net/?retryWrites=true&w=majority&appName=trello-web'
+
+const MONGODB_URI = env.MONGODB_URI
+const DATABASE_NAME = env.DATABASE_NAME
 
 let trelloDatabaseInstance = 'null'
 
@@ -12,13 +15,12 @@ const client = new MongoClient(MONGODB_URI, {
   }
 })
 
-const database_name = 'trello-web-apis'
 
 // ket noi den database
 export const CONNECT_DB = async () => {
   await client.connect()
 
-  trelloDatabaseInstance = client.db(database_name)
+  trelloDatabaseInstance = client.db(DATABASE_NAME)
 }
 
 // Dong ket noi database
