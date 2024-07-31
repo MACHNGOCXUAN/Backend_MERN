@@ -3,6 +3,7 @@ import express from 'express'
 import { CONNECT_DB, CLOSE_DB } from '~/config/mongodb'
 import exitHook from 'async-exit-hook'
 import { env } from './config/environment'
+import { APIs_v1 } from './routes/v1'
 
 
 const START_SERVER = () => {
@@ -11,9 +12,7 @@ const START_SERVER = () => {
   const hostname = env.APP_HOST
   const port = env.APP_PORT
 
-  app.get('/', async (req, res) => {
-    res.end('<h1>Mach ngoc xuan</h1><hr>')
-  })
+  app.use('/v1', APIs_v1)
 
   app.listen(port, hostname, () => {
     console.log(`3.Backend server is runing successfully http://${ hostname }:${ port }/`)
