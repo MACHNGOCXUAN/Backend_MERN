@@ -14,11 +14,16 @@ const client = new MongoClient(MONGODB_URI, {
 
 const database_name = 'trello-web-apis'
 
-// ket noi den db
+// ket noi den database
 export const CONNECT_DB = async () => {
   await client.connect()
 
   trelloDatabaseInstance = client.db(database_name)
+}
+
+// Dong ket noi database
+export const CLOSE_DB = async () => {
+  await client.close()
 }
 
 export const GET_DB = () => {
