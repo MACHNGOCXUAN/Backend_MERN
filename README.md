@@ -9,3 +9,5 @@
 -Cài thư viện env : yarn add dotenv
 
 -Cài đặt thư viện Joi: yarn add joi : thư viện validation (ràng buộc dữ diệu bên backend)
+
+-Cài đặt thư viện cross-env: yarn add cross-env : thư viện để sử dụng được nhiều môi trường như windown ,mac ,linux
