@@ -20,8 +20,7 @@ const createNew = async (req, res, next) => {
 
   try {
     await correctCondition.validateAsync(req.body, { abortEarly: false })
-    // next()
-    res.status(201).json({ message: 'Post APIs' })
+    next()
   } catch (error) {
     res.status(422).json({
       errors: new Error(error).message
