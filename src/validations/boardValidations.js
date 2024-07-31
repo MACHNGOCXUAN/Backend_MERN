@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import ApiError from '~/utils/ApiError'
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
@@ -22,9 +23,13 @@ const createNew = async (req, res, next) => {
     await correctCondition.validateAsync(req.body, { abortEarly: false })
     next()
   } catch (error) {
-    res.status(422).json({
-      errors: new Error(error).message
-    })
+    const errorMessage = new Error(error).message
+    const customError = new ApiError(422, errorMessage)
+    next(customError)
+
+    // res.status(422).json({
+    //   errors: new Error(error).message
+    // })
   }
 
 }

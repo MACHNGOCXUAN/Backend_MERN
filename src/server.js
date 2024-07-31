@@ -4,6 +4,7 @@ import { CONNECT_DB, CLOSE_DB } from '~/config/mongodb'
 import exitHook from 'async-exit-hook'
 import { env } from './config/environment'
 import { APIs_v1 } from './routes/v1'
+import { errorHandlingMiddleware } from './middlewares/errorHandlingMiddleware'
 
 
 const START_SERVER = () => {
@@ -15,6 +16,8 @@ const START_SERVER = () => {
   app.use(express.json())
 
   app.use('/v1', APIs_v1)
+
+  app.use(errorHandlingMiddleware)
 
   app.listen(port, hostname, () => {
     console.log(`3.Backend server is runing successfully http://${ hostname }:${ port }/`)
