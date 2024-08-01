@@ -1,11 +1,13 @@
-
+import { boardServices } from '~/services/boardServices'
 const createNew = async (req, res, next) => {
   try {
     // console.log('req.body', req.body)
     // console.log('req.query', req.query)
     // console.log('req.params', req.params)
 
-    res.status(201).json({ message: 'Post APIs' })
+    const createBoard = await boardServices.createNew(req.body)
+
+    res.status(201).json(createBoard)
   } catch (error) {
     next(error)
   }
