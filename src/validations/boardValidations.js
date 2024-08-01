@@ -31,9 +31,22 @@ const createNew = async (req, res, next) => {
     //   errors: new Error(error).message
     // })
   }
+}
 
+const getDetails = async (req, res, next) => {
+  const correctCondition = Joi.object({
+    id: Joi.string().trim().strict().required()
+  })
+
+  try {
+    await correctCondition.validateAsync({ id: req.params.id }, { abortEarly: false })
+    next()
+  } catch (error) {
+    const customError = new ApiError(422, error.message)
+    next(customError)
+  }
 }
 
 export const boardValidations = {
-  createNew
+  createNew, getDetails
 }

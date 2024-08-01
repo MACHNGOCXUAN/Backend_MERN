@@ -1,4 +1,5 @@
 import { boardServices } from '~/services/boardServices'
+
 const createNew = async (req, res, next) => {
   try {
     // console.log('req.body', req.body)
@@ -13,6 +14,21 @@ const createNew = async (req, res, next) => {
   }
 }
 
+const getDetails = async (req, res, next) => {
+  try {
+    // console.log('req.params', req.params)
+    const boardId = req.params.id
+    // console.log(boardId)
+
+    const board = await boardServices.getDetails(boardId)
+
+    res.status(200).json(board)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const boardControllers = {
-  createNew
+  createNew,
+  getDetails
 }
