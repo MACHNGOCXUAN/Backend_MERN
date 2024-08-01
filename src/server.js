@@ -1,23 +1,28 @@
 /* eslint-disable no-console */
 import express from 'express'
+import cors from 'cors'
 import { CONNECT_DB, CLOSE_DB } from '~/config/mongodb'
 import exitHook from 'async-exit-hook'
 import { env } from './config/environment'
 import { APIs_v1 } from './routes/v1'
 import { errorHandlingMiddleware } from './middlewares/errorHandlingMiddleware'
+import { corsOptions } from './config/cors'
 
 
 const START_SERVER = () => {
   const app = express()
 
-  const hostname = env.APP_HOST
-  const port = env.APP_PORT
+  app.use(cors(corsOptions))
 
   app.use(express.json())
 
   app.use('/v1', APIs_v1)
 
   app.use(errorHandlingMiddleware)
+
+  const hostname = env.APP_HOST
+  const port = env.APP_PORT
+
 
   app.listen(port, hostname, () => {
     console.log(`3.Backend server is runing successfully http://${ hostname }:${ port }/`)
