@@ -16,6 +16,12 @@ const createNew = async (req, res, next) => {
       'string.min': 'Description tối thiếu phải 3 kí tự.',
       'string.max': 'Description tối đa là 256 kí tự.',
       'string.trim': 'Description không được có khoảng trắng ở đầu và cuối cuỗi'
+    }),
+    type: Joi.string().valid('public', 'private').required().messages({
+      'any.required': 'Type là trường bắt buộc.',
+      'string.empty': 'Type không được rỗng.',
+      'string.trim': 'Type không được có khoảng trắng ở đầu và cuối cuỗi',
+      'string.valid': 'Type chỉ được public or private'
     })
   })
 

@@ -26,7 +26,13 @@ const getDetails = async ( id ) => {
     if ( !boardById ) {
       throw new ApiError(404, 'Board not found!')
     }
-    return boardById
+    const resBoard = { ...boardById }
+    resBoard.columns.forEach(column => {
+      column.cards = resBoard.cards.filter(card => card.columnId.equals(column._id))
+    })
+
+    delete resBoard.cards
+    return resBoard
   } catch (error) {
     throw error
   }
