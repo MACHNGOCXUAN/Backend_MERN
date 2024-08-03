@@ -14,6 +14,7 @@ const createNew = async ( reqBody ) => {
     const columnById = await columnModel.findOneById(createdcolumn.insertedId)
     if (columnById) {
       // console.log(columnById)
+      columnById.cards=[]
       await boardModel.pushColumnOrderIds(columnById)
     }
     return columnById
