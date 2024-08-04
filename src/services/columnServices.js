@@ -23,6 +23,22 @@ const createNew = async ( reqBody ) => {
   }
 }
 
+const update = async ( id, reqbody ) => {
+  try {
+    const updateData = {
+      ...reqbody,
+      updatedAt: Date.now()
+    }
+
+    const updateColumn = await columnModel.update(id, updateData)
+
+    return updateColumn
+  } catch (error) {
+    throw error
+  }
+}
+
 export const columnServices = {
-  createNew
+  createNew,
+  update
 }
