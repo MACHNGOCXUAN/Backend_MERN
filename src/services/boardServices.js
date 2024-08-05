@@ -3,6 +3,8 @@
 import { slugify } from '~/utils/formatters'
 import { boardModel } from '~/models/boardModels'
 import ApiError from '~/utils/ApiError'
+import { columnModel } from '~/models/columnModels'
+import { cardModel } from '~/models/cardModels'
 
 const createNew = async ( reqBody ) => {
   try {
@@ -53,8 +55,34 @@ const update = async ( id, reqbody ) => {
   }
 }
 
+const updateCardOtherColumn = async (reqBody) => {
+  try {
+    // b1 : cap nhat cardOrderIds cua card keo
+    await columnModel.update(reqBody.prevColumnId, {
+      cardOrderIds: reqBody.prevCardOrderIds,
+      updatedAt: Date.now()
+    })
+
+    // b2 : cap nhat cardOrderIds cua card tha
+    await columnModel.update(reqBody.nextColumnId, {
+      cardOrderIds: reqBody.nextCardOrderIds,
+      updatedAt: Date.now()
+    })
+
+    // b3 : Cap nha lai truong columnId moi cua cai card da keo
+    await cardModel.update(reqBody.currentCardId, {
+      columnId: reqBody.nextColumnId
+    })
+    return { updateResult: 'Seccessfully card other column' }
+  } catch (error) {
+    throw error
+  }
+
+}
+
 export const boardServices = {
   createNew,
   getDetails,
-  update
+  update,
+  updateCardOtherColumn
 }
