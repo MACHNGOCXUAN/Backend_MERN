@@ -25,7 +25,23 @@ const update = async (req, res, next) => {
   }
 }
 
+const deleted = async (req, res, next) => {
+  try {
+    // console.log('req.params', req.params)
+    // console.log('req.body', req.body)
+    const columnId = req.params.id
+    // console.log(boardId)
+
+    const deleteColumn = await columnServices.deleted(columnId)
+
+    res.status(200).json(deleteColumn)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const columnControllers = {
   createNew,
-  update
+  update,
+  deleted
 }

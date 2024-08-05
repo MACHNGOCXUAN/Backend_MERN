@@ -51,7 +51,27 @@ const update = async (req, res, next) => {
   }
 }
 
+const deleted = async (req, res, next) => {
+  const correctCondition = Joi.object({
+    id: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
+  })
+
+  try {
+    await correctCondition.validateAsync(req.params)
+    next()
+  } catch (error) {
+    const errorMessage = new Error(error).message
+    const customError = new ApiError(422, errorMessage)
+    next(customError)
+
+    // res.status(422).json({
+    //   errors: new Error(error).message
+    // })
+  }
+}
+
 export const columnValidations = {
   createNew,
-  update
+  update,
+  deleted
 }
